@@ -1,0 +1,87 @@
+# ============================================================================
+#  Unity 项目 .gitignore
+#
+#  ⚠️ 这个文件是整个仓库里最重要的一个文件。
+#
+#  不加它直接 git add . 会发生什么（这个项目实测的数据）：
+#      Library/      52,685 个文件   2,344 MB   ← 全部是 Unity 自动生成的缓存
+#      Build/           181 个文件      99 MB   ← 打包产物，还含 Unity 的专有运行库
+#      Temp/ Logs/ .vs/ UserSettings/    46 个文件   2.4 MB
+#
+#  真正该提交的只有 293 个文件 / 11.7 MB（Assets + ProjectSettings + Packages）。
+#  推 2.3 GB 上去的结果通常是：传一半卡死、仓库永久臃肿、而且【推不上去】。
+#
+#  Library/ 是【本机缓存】，换台电脑打开工程时 Unity 会自己重建。
+#  它不进版本库不是"省事"，是正确做法 —— 里面的内容跟机器和版本绑定。
+# ============================================================================
+
+# ---------------------------------------------------------------- Unity 生成
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Asset Store 下载的包的原始缓存（很大，而且能从 Asset Store 重新下载）
+/[Aa]ssets/AssetStoreTools*
+/[Aa]ssets/Plugins/Editor/JetBrains*
+
+# Unity 自己生成的解决方案和工程文件
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity 崩溃日志
+sysinfo.txt
+crashlytics-build.properties
+
+# ---------------------------------------------------------------- 操作系统
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------------- 编辑器 / IDE
+.vs/
+.idea/
+.vscode/
+*.swp
+*~
+
+# ---------------------------------------------------------------- 打包产物
+# Build/ 已经在上面被排除了，这里再写一遍是为了强调：
+# 打包产物【不要】提交进仓库。
+#
+# 为什么：里面 35 MB 的 UnityPlayer.dll、MonoBleedingEdge/、D3D12Core.dll
+# 都是 Unity 的【专有二进制】，不是你的代码。把它们放进公开仓库、
+# 再挂一个 MIT 之类的开源协议，等于在声明"这些也是我开源的" —— 这不是事实。
+#
+# 正确做法：源码进仓库，打包产物挂到 GitHub 的 Release 里当附件。
+/Build/
+/Builds/
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# ---------------------------------------------------------------- 特别注意
+# 打包目录里有个叫 2Dplay_BurstDebugInformation_DoNotShip 的文件夹。
+# 名字就是 Unity 自己给的警告：不要分发。上传前务必删掉。
